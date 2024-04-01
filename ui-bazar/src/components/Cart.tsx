@@ -21,7 +21,7 @@ const Cart = () => {
         </SheetTrigger>
         <SheetContent side={"left"} className="flex w-full flex-col pr-0 sm:max-w-lg">
             <SheetHeader className="space-y-2.5 pr-6">
-                <SheetTitle className="mx-auto mt-6 text-blue-700">سبد خرید (۰)</SheetTitle>
+                <SheetTitle className="mx-auto mt-6 text-blue-700">سبد خرید ({itemCount})</SheetTitle>
             </SheetHeader>
             {itemCount > 0 ? (
                 <>
