@@ -1,13 +1,17 @@
 'use client'
 
 import { ShoppingCart } from "lucide-react"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
 import { Separator } from "./ui/separator"
 import { formatPrice } from "@/lib/utils"
+import Link from "next/link"
+import { buttonVariants } from "./ui/button"
+import Image from "next/image"
 
 const Cart = () => {
 
-    const itemCount = 1
+    const itemCount = 0
+    const fee = 100000
 
     return <Sheet>
         <SheetTrigger className="group -m-2 flex items-center p-2">
@@ -16,7 +20,7 @@ const Cart = () => {
         </SheetTrigger>
         <SheetContent side={"left"} className="flex w-full flex-col pr-0 sm:max-w-lg">
             <SheetHeader className="space-y-2.5 pr-6">
-                <SheetTitle className="mx-auto mt-6">سبد خرید (۰)</SheetTitle>
+                <SheetTitle className="mx-auto mt-6 text-blue-700">سبد خرید (۰)</SheetTitle>
             </SheetHeader>
             {itemCount > 0 ? (
                 <>
@@ -32,14 +36,37 @@ const Cart = () => {
                                 <span className='flex-1'>هزینه ارسال</span>
                             </div>
                             <div className="flex">
-                                <span>{formatPrice(100000)}</span>
-                                <span className='flex-1'>کمیسیون</span>
-
+                                <span>{formatPrice(fee)}</span>
+                                <span className='flex-1'>قیمت</span>
+                            </div>
+                            <div className="flex">
+                                <span className="text-blue-600">{formatPrice(fee)}</span>
+                                <span className='flex-1'>مجموع</span>
                             </div>
                         </div>
+                        <SheetFooter>
+                            <SheetTrigger asChild>
+                                <Link href='/cart' className={buttonVariants({ className: 'w-full' })}>رفتن به پرداخت</Link>
+                            </SheetTrigger>
+                        </SheetFooter>
                     </div>
                 </>
-            ) : (<div></div>)}
+            ) : (<div className="flex h-full flex-col items-center justify-center space-y-1">
+                <div aria-hidden='true' className="relative mb-4 h-60 w-60 to-muted-foreground">
+                    <Image src='/hippo-empty-cart.png' fill alt="empty cart" />
+                </div>
+                <div className="text-xl font-semibold">سبد خرید شما خالی است</div>
+                <SheetTrigger asChild>
+                    <Link href='/products' className={buttonVariants({
+                        variant: 'link',
+                        size: 'sm',
+                        className: 'text-sm to-muted-foreground'
+                    })}>
+                        افزودن به سبد خرید
+                    </Link>
+                </SheetTrigger>
+            </div>
+            )}
         </SheetContent>
     </Sheet>
 }
