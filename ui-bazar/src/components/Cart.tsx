@@ -7,10 +7,11 @@ import { formatPrice } from "@/lib/utils"
 import Link from "next/link"
 import { buttonVariants } from "./ui/button"
 import Image from "next/image"
+import { useState } from "react"
 
 const Cart = () => {
 
-    const itemCount = 0
+    const [itemCount, setItemCount] = useState(0)
     const fee = 100000
 
     return <Sheet>
