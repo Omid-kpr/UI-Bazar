@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 
 const Page = () => {
 
