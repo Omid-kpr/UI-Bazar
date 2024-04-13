@@ -6,21 +6,21 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3000
 
 const start = async () => {
-    const payload = getPayloadClient({
+    const payload = await getPayloadClient({
         initOptions: {
             express: app,
             onInit: async (cms) => {
-                cms.logger.info(`Admin URL: ${cms.getAdminURL()})`)
+                cms.logger.info(`Admin URL: ${cms.getAdminURL()}`)
             }
         },
     })
 
     app.use((req, res) => nextHandler(req, res))
 
-    nextApp.prepare().then((payload) => {
+    nextApp.prepare().then(() => {
         console.log(`Next.js started`)
 
-        app.listen(PORT, () => {
+        app.listen(PORT, async () => {
             console.log(`Next.js app URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`)
         })
     })

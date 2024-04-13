@@ -1,6 +1,11 @@
-require('dotenv').config()
+import dotenv from "dotenv"
+import path from "path"
 import type { InitOptions } from "payload/config"
 import payload from "payload"
+
+dotenv.config({
+    path: path.resolve(__dirname, "../.env")
+})
 
 let cashed = (global as any).payload
 
@@ -39,5 +44,5 @@ export const getPayloadClient = async ({ initOptions }: Args = {}) => {
         throw error
     }
 
-    return cashed.client
+    return cashed.client;
 }
