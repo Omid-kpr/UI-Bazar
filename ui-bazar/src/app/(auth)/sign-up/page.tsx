@@ -1,11 +1,29 @@
 'use client'
 
 import { Icons } from "@/components/Icons"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
+import { AuthCredentialsValidator, TAuthCredentialsValidator } from "@/lib/validators/account-credentials-validator"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
-const page = () => {
+const Page = () => {
+
+
+
+    const { register, handleSubmit, formState: { errors } } = useForm<TAuthCredentialsValidator>({
+        resolver: zodResolver(AuthCredentialsValidator)
+    })
+
+    const submit = ({ email, password }: TAuthCredentialsValidator) => {
+        //send data to server
+    }
+
     return (
         <>
             <div className="cantainer relative flex pt-20 flex-col items-center justify-center lg:px-0">
@@ -22,10 +40,33 @@ const page = () => {
                         </Link>
                     </div>
 
+                    <div className="grid gap-6 text-right">
+                        <form onSubmit={handleSubmit(submit)}>
+                            <div className="grid gap-2">
+                                <div className="grid gap-1 py-2">
+                                    <Label className="pb-1 pr-2" htmlFor="email">ایمیل</Label>
+                                    <Input
+                                        {...register('email')}
+                                        className={cn({ 'focus-visible:ring-red-500': errors.email })}
+                                        placeholder="you@example.com"
+                                    />
+                                </div>
+                                <div className="grid gap-1 py-2">
+                                    <Label className="pb-1 pr-2" htmlFor="password">رمز عبور</Label>
+                                    <Input
+                                        {...register('password')}
+                                        className={cn({ 'focus-visible:ring-red-500': errors.password })}
+                                        placeholder="password"
+                                    />
+                                </div>
+                                <Button>ثبت نام</Button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </>
     )
 }
 
-export default page
+export default Page
